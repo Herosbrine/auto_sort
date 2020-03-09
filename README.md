@@ -1,4 +1,5 @@
 # auto_sort
-permet de trier tout ses fichiers, dossier, extensions, automatiquement ! 
+script permettant de trier tout vos fichiers, dossier, extensions, automatiquement et comme vous le souhaitez !
 
 USAGE : /auto_sort
+
