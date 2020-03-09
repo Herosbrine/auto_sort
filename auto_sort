@@ -1,0 +1,81 @@
+#!/usr/bin/python3
+# -*-coding:utf-8*
+
+import sys
+import os
+import shutil
+
+def main():
+    access_rights = 0o755
+    dir_to_create_and_sort = input("rentrez le dossier a crée pour mettre les éléments triées(/home/user/sort_list) : ")
+    dir_to_sort = input("rentrez le repertoire a trier (/home/user/list_to_sort) : ")
+    dirs = os.listdir(dir_to_sort)
+    file_name = [element for element in dirs if os.path.isfile(os.path.join(dir_to_sort, element)) is True]
+    dir_name = [element for element in dirs if os.path.isdir(os.path.join(dir_to_sort, element)) is True]
+    try:
+        os.mkdir(dir_to_create_and_sort, access_rights)
+    except OSError:
+        print ("Creation of the directory %s failed, already exist" % dir_to_create_and_sort)
+    else:
+        print ("Creation of the directory done.")
+    file_or_dir = int(input("trier les fichiers(1) ou les dossiers(2), par extensions(3), exit(4): "))
+    if file_or_dir == 1:
+        files_manages = int(input("Tout les fichiers en meme temps dedant? oui(1)/ non(2) : "))
+        if (files_manages == 1):
+            exeption = int(input("Des expections a ne pas trier : oui(1)/ non(2) : "))
+            if exeption == 1:
+                arg_expection = input("rentrer les expections (ex : test test2 test3) : ")
+                my_list = arg_expection.split(" ")
+                for elem in my_list:
+                    file_name.remove(elem)
+            for element in file_name:
+                if (dir_to_sort + element) != dir_to_create_and_sort:
+                    shutil.move(os.path.join(dir_to_sort, element) , dir_to_create_and_sort)
+        else:
+            x = int(input("Combien des premieres lettre sont en commun pour les fichiers? (1, 2, 3, ...) : "))
+            file_first_letter = (input("Rentrez ces lettres (dans l'ordre) : "))
+            exeption1 = int(input("Des expections a ne pas trier : oui(1)/ non(2) : "))
+            if exeption1 == 1:
+                arg_expection1 = input("rentrer les expections (ex : test test2 test3) : ")
+                my_list1 = arg_expection1.split(" ")
+                for elem in my_list1:
+                    file_name.remove(elem)
+            for element in file_name:
+                if element[0: x] == file_first_letter:
+                    shutil.move(os.path.join(dir_to_sort, element) , dir_to_create_and_sort)
+    elif file_or_dir == 2:
+        dir_manages = int(input("Tout les dossiers en meme temps dedant? oui(1)/ non(2) : "))
+        if (dir_manages == 1):
+            exeption2 = int(input("Des expections a ne pas trier : oui(1)/ non(2) : "))
+            if exeption2 == 1:
+                arg_expection2 = input("rentrer les expections (ex : test test2 test3) : ")
+                my_list2 = arg_expection2.split(" ")
+                for elem in my_list2:
+                    dir_name.remove(elem)
+            for element in dir_name:
+                if (dir_to_sort + element) != dir_to_create_and_sort:
+                    shutil.move(os.path.join(dir_to_sort, element) , dir_to_create_and_sort)
+        else:
+            y = int(input("Combien des premieres lettre sont en commun pour les fichiers? (1, 2, 3, ...) : "))
+            dir_first_letter = (input("Rentrez ces lettres (dans l'ordre) : "))
+            exeption3 = int(input("Des expections a ne pas trier : oui(1)/ non(2) : "))
+            if exeption3 == 1:
+                arg_expection3 = input("rentrer les expections (ex : test test2 test3) : ")
+                my_list3 = arg_expection3.split(" ")
+                for elem in my_list3:
+                    dir_name.remove(elem)
+            for element in dir_name:
+                if element[0: y] == dir_first_letter:
+                    shutil.move(os.path.join(dir_to_sort, element) , dir_to_create_and_sort)
+    elif file_or_dir == 3:
+        extension_files = input("marquez les lettres de l'extension du fichier(.txt, .zip etc..) : ")
+        for element in file_name:
+            if (element.endswith(extension_files)):
+                shutil.move(os.path.join(dir_to_sort, element) , dir_to_create_and_sort)
+    if (file_or_dir == 1 or file_or_dir == 2 or file_or_dir == 3):
+        print("\nDONE !\n")
+    else:
+        sys.exit(0)
+    main()
+if __name__ == "__main__":
+    main()
