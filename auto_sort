@@ -15,10 +15,10 @@ def main():
     try:
         os.mkdir(dir_to_create_and_sort, access_rights)
     except OSError:
-        print ("Creation of the directory %s failed, already exist" % dir_to_create_and_sort)
+        print ("Creation of the directory %s failed, already exist\n" % dir_to_create_and_sort)
     else:
-        print ("Creation of the directory done.")
-    file_or_dir = int(input("trier les fichiers(1) ou les dossiers(2), par extensions(3), exit(4): "))
+        print ("Creation of the directory done.\n")
+    file_or_dir = int(input(" Triez les fichiers(1) ou les dossiers(2), par extensions(3), exit(4): "))
     if file_or_dir == 1:
         files_manages = int(input("Tout les fichiers en meme temps dedant? oui(1)/ non(2) : "))
         if (files_manages == 1):
